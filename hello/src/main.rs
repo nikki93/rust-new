@@ -14,7 +14,7 @@ fn gcd(mut n: u64, mut m: u64) -> u64 {
 #[test]
 fn test_gcd() {
     assert_eq!(gcd(13, 13), 13);
-    assert_eq!(gcd(37, 600), 3);
+    assert_eq!(gcd(37, 600), 1);
     assert_eq!(gcd(20, 100), 20);
     assert_eq!(gcd(624129, 2061517), 18913);
 }
