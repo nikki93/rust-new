@@ -19,8 +19,25 @@ fn test_gcd() {
     assert_eq!(gcd(624129, 2061517), 18913);
 }
 
+use std::io::Write;
+use std::str::FromStr;
+
 fn main() {
-    let m = 25;
-    let n = 60;
-    println!("gcd of {} and {} is: {}", m, n, gcd(m, n));
+    let mut numbers = Vec::new();
+
+    for arg in std::env::args().skip(1) {
+        numbers.push(u64::from_str(&arg).expect("error parsing argument"));
+    }
+
+    if numbers.len() == 0 {
+        writeln!(std::io::stderr(), "Usage: gcd NUMBER ...").unwrap();
+        std::process::exit(1);
+    }
+
+    let mut d = numbers[0];
+    for n in &numbers[1..] {
+        d = gcd(d, *n);
+    }
+
+    println!("The greatest common divisor of {:?} is {}", numbers, d);
 }
