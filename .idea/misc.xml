@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CargoProjects">
     <cargoProject FILE="$PROJECT_DIR$/hello/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/iron-gcd/Cargo.toml" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
