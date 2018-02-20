@@ -3,6 +3,7 @@
   <component name="CargoProjects">
     <cargoProject FILE="$PROJECT_DIR$/hello/Cargo.toml" />
     <cargoProject FILE="$PROJECT_DIR$/iron-gcd/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/mandelbrot/Cargo.toml" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
