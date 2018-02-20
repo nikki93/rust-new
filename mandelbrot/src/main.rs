@@ -33,7 +33,7 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
 }
 
 #[test]
-fn test_parse_pair()  {
+fn test_parse_pair() {
     assert_eq!(parse_pair::<i32>("", ','), None);
     assert_eq!(parse_pair::<i32>("10,", ','), None);
     assert_eq!(parse_pair::<i32>(",20", ','), None);
@@ -42,3 +42,15 @@ fn test_parse_pair()  {
     assert_eq!(parse_pair::<f64>("10.2,20.5", 'x'), None);
 }
 
+fn parse_complex(s: &str) -> Option<Complex<f64>> {
+    match parse_pair(s, ',') {
+        Some((re, im)) => Some(Complex { re, im }),
+        None => None
+    }
+}
+
+#[test]
+fn test_parse_complex() {
+    assert_eq!(parse_complex("10.2,"), None);
+    assert_eq!(parse_complex("10.2,20.5"), Some(Complex { re: 10.2, im: 20.5 }));
+}
