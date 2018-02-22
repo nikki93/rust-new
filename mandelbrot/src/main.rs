@@ -1,7 +1,3 @@
-fn main() {
-    println!("Hello, world!");
-}
-
 extern crate num;
 
 use num::Complex;
@@ -84,7 +80,7 @@ fn render(pixels: &mut [u8],
     for row in 0..bounds.1 {
         for column in 0..bounds.0 {
             let point = pixel_to_point(bounds, (column, row), upper_left, lower_right);
-            pixels[pixel_index] = match escape_time(point, 200) {
+            pixels[pixel_index] = match escape_time(point, 255) {
                 None => 0,
                 Some(count) => 255 - count as u8,
             };
@@ -104,4 +100,21 @@ fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> Result<
     let encoder = PNGEncoder::new(output);
     encoder.encode(pixels, bounds.0 as u32, bounds.1 as u32, ColorType::Gray(8))?;
     Ok(())
+}
+
+use std::io::Write;
+
+fn main() {
+    let args: Vec<String> = std::env::args().collect();
+
+    if args.len() == 5 {
+        let bounds = parse_pair(&args[2], 'x').expect("parse bounds");
+        let upper_left = parse_complex(&args[3]).expect("parse upper left");
+        let lower_right = parse_complex(&args[4]).expect("parse lower right");
+
+        let mut pixels = vec![0; bounds.0 * bounds.1];
+        render(&mut pixels, bounds, upper_left, lower_right);
+
+        write_image(&args[1], &pixels, bounds).expect("write image");
+    }
 }
