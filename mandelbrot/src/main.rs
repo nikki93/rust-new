@@ -72,3 +72,36 @@ fn test_pixel_to_point() {
                               Complex { re: 1.0, im: -1.0 }),
                Complex { re: -0.5, im: -0.5 });
 }
+
+fn render(pixels: &mut [u8],
+          bounds: (usize, usize),
+          upper_left: Complex<f64>,
+          lower_right: Complex<f64>)
+{
+    assert_eq!(pixels.len(), bounds.0 * bounds.1);
+
+    let mut pixel_index = 0;
+    for row in 0..bounds.1 {
+        for column in 0..bounds.0 {
+            let point = pixel_to_point(bounds, (column, row), upper_left, lower_right);
+            pixels[pixel_index] = match escape_time(point, 200) {
+                None => 0,
+                Some(count) => 255 - count as u8,
+            };
+            pixel_index += 1;
+        }
+    }
+}
+
+extern crate image;
+
+use image::ColorType;
+use image::png::PNGEncoder;
+use std::fs::File;
+
+fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> Result<(), std::io::Error> {
+    let output = File::create(filename)?;
+    let encoder = PNGEncoder::new(output);
+    encoder.encode(pixels, bounds.0 as u32, bounds.1 as u32, ColorType::Gray(8))?;
+    Ok(())
+}
