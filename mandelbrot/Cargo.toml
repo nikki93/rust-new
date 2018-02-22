@@ -6,3 +6,4 @@ authors = ["Nikhilesh Sigatapu <s.nikhilesh@gmail.com>"]
 [dependencies]
 num = "0.1.27"
 image = "0.13.0"
+crossbeam = "0.2.8"

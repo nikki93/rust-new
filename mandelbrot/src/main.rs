@@ -104,6 +104,8 @@ fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> Result<
 
 use std::io::Write;
 
+extern crate crossbeam;
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
 
@@ -113,7 +115,24 @@ fn main() {
         let lower_right = parse_complex(&args[4]).expect("parse lower right");
 
         let mut pixels = vec![0; bounds.0 * bounds.1];
-        render(&mut pixels, bounds, upper_left, lower_right);
+        {
+            let threads = 16;
+            let rows_per_band = bounds.1 / threads + 1;
+            let bands: Vec<&mut [u8]> = pixels.chunks_mut(rows_per_band * bounds.0).collect();
+            crossbeam::scope(|spawner| {
+                for (i, band) in bands.into_iter().enumerate() {
+                    let band_top = rows_per_band * i;
+                    let band_height = band.len() / bounds.0;
+                    let band_bounds = (bounds.0, band_height);
+                    let band_upper_left = pixel_to_point(bounds, (0, band_top), upper_left, lower_right);
+                    let band_lower_right = pixel_to_point(bounds, (bounds.0, band_top + band_height), upper_left, lower_right);
+
+                    spawner.spawn(move || {
+                        render(band, band_bounds, band_upper_left, band_lower_right);
+                    });
+                }
+            });
+        }
 
         write_image(&args[1], &pixels, bounds).expect("write image");
     }
