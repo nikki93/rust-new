@@ -4,6 +4,7 @@
     <cargoProject FILE="$PROJECT_DIR$/hello/Cargo.toml" />
     <cargoProject FILE="$PROJECT_DIR$/iron-gcd/Cargo.toml" />
     <cargoProject FILE="$PROJECT_DIR$/mandelbrot/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/sandbox/Cargo.toml" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="JSX" />
@@ -13,5 +14,6 @@
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="useCargoCheckAnnotator" value="true" />
   </component>
 </project>
