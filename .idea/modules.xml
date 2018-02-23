@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/hello/hello.iml" filepath="$PROJECT_DIR$/hello/hello.iml" />
       <module fileurl="file://$PROJECT_DIR$/iron-gcd/iron-gcd.iml" filepath="$PROJECT_DIR$/iron-gcd/iron-gcd.iml" />
       <module fileurl="file://$PROJECT_DIR$/mandelbrot/mandelbrot.iml" filepath="$PROJECT_DIR$/mandelbrot/mandelbrot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sandbox/sandbox.iml" filepath="$PROJECT_DIR$/sandbox/sandbox.iml" />
     </modules>
   </component>
 </project>
