@@ -102,8 +102,6 @@ fn write_image(filename: &str, pixels: &[u8], bounds: (usize, usize)) -> Result<
     Ok(())
 }
 
-use std::io::Write;
-
 extern crate crossbeam;
 
 fn main() {
