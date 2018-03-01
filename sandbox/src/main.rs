@@ -20,6 +20,12 @@ fn print_map(m: &HashMap<i32, String>) {
 #[macro_use]
 extern crate maplit;
 
+static mut STATIC_REF: &i32 = &400;
+
+unsafe fn set_static(p: &'static i32) {
+    STATIC_REF = p;
+}
+
 fn main() {
     const MAX: usize = 3000000;
     let mut sieve = [true; MAX];
@@ -69,4 +75,10 @@ fn main() {
 
     let qq = &&i;
     assert_eq!(pp, qq);
+
+    static STATIC: i32 = 42;
+    unsafe {
+        set_static(&STATIC);
+        println!("STATIC is {}", STATIC_REF);
+    }
 }
