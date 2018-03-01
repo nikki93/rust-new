@@ -5,6 +5,21 @@ fn foo() -> i32 {
     z
 }
 
+fn bar(v: &Vec<i32>) {
+    println!("{:?}", v);
+}
+
+use std::collections::HashMap;
+
+fn print_map(m: HashMap<i32, String>) {
+    for (i, s) in m {
+        println!("'{}' at [{}]", s, i);
+    }
+}
+
+#[macro_use]
+extern crate maplit;
+
 fn main() {
     const MAX: usize = 3000000;
     let mut sieve = [true; MAX];
@@ -34,4 +49,16 @@ fn main() {
     println!("{}", "the\u{301}");
 
     println!("{}", foo());
+
+    let w = vec![1, 2, 3];
+    for i in 1..10 {
+        bar(&w);
+    }
+
+    let map = hashmap![
+        1 => "one".to_string(),
+        42 => "forty two".to_string(),
+    ];
+    assert_eq!(map[&42], "forty two");
+    print_map(map);
 }
