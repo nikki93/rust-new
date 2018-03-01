@@ -11,7 +11,7 @@ fn bar(v: &Vec<i32>) {
 
 use std::collections::HashMap;
 
-fn print_map(m: HashMap<i32, String>) {
+fn print_map(m: &HashMap<i32, String>) {
     for (i, s) in m {
         println!("'{}' at [{}]", s, i);
     }
@@ -51,7 +51,7 @@ fn main() {
     println!("{}", foo());
 
     let w = vec![1, 2, 3];
-    for i in 1..10 {
+    for _ in 1..10 {
         bar(&w);
     }
 
@@ -59,6 +59,14 @@ fn main() {
         1 => "one".to_string(),
         42 => "forty two".to_string(),
     ];
+    print_map(&map);
     assert_eq!(map[&42], "forty two");
-    print_map(map);
+
+    let i: i32 = 400;
+    let p = &i;
+    let pp = &p;
+    println!("{}", pp);
+
+    let qq = &&i;
+    assert_eq!(pp, qq);
 }
