@@ -1,3 +1,18 @@
+fn select_ref<'a, 'b, 'c>(a: &'a i32, b: &'b i32, selector: i32) -> &'c i32 where 'a: 'c, 'b: 'c {
+    if selector == 0 {
+        a
+    } else {
+        b
+    }
+}
+
+#[test]
+fn test_select_ref() {
+    let a = 42;
+    let b = 36;
+    assert_eq!(*select_ref(&a, &b, 0), a);
+}
+
 fn foo() -> i32 {
     let x = 3;
     let y = 4;
