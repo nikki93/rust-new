@@ -13,6 +13,20 @@ fn test_select_ref() {
     assert_eq!(*select_ref(&a, &b, 0), a);
 }
 
+struct S<'a> {
+    r: &'a i32,
+}
+
+#[test]
+fn test_struct_ref() {
+    let s;
+    {
+        let x = 10;
+        s = S { r: &x };
+    }
+    assert_eq!(*s.r, 10);
+}
+
 fn foo() -> i32 {
     let x = 3;
     let y = 4;
