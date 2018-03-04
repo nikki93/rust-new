@@ -35,7 +35,7 @@ struct P<'a, 'b> {
 
 #[test]
 fn test_deep_ref() {
-    let mut p = P { a: &mut Q { i: 23 }, b: &mut Q { i: 42 } };
+    let p = P { a: &mut Q { i: 23 }, b: &mut Q { i: 42 } };
     let r1 = &p.a.i;
     p.b.i = 4;
     assert_eq!(*r1, 23);
