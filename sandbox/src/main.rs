@@ -19,12 +19,26 @@ struct S<'a> {
 
 #[test]
 fn test_struct_ref() {
-    let s;
-    {
-        let x = 10;
-        s = S { r: &x };
-    }
+    let x = 10;
+    let s = S { r: &x };
     assert_eq!(*s.r, 10);
+}
+
+struct Q {
+    i: i32,
+}
+
+struct P<'a, 'b> {
+    a: &'a mut Q,
+    b: &'b mut Q,
+}
+
+#[test]
+fn test_deep_ref() {
+    let mut p = P { a: &mut Q { i: 23 }, b: &mut Q { i: 42 } };
+    let r1 = &p.a.i;
+    p.b.i = 4;
+    assert_eq!(*r1, 23);
 }
 
 fn foo() -> i32 {
